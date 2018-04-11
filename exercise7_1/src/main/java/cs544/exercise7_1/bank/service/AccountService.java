@@ -1,18 +1,13 @@
 package cs544.exercise7_1.bank.service;
 
 import java.util.Collection;
-import org.hibernate.Transaction;
 
-import cs544.exercise7_1.bank.dao.AccountDAOHibernate;
-import cs544.exercise7_1.bank.dao.HibernateUtil;
+
 import cs544.exercise7_1.bank.dao.IAccountDAO;
 import cs544.exercise7_1.bank.domain.Account;
 import cs544.exercise7_1.bank.domain.Customer;
 import cs544.exercise7_1.bank.jms.IJMSSender;
-import cs544.exercise7_1.bank.jms.JMSSender;
 import cs544.exercise7_1.bank.logging.ILogger;
-import cs544.exercise7_1.bank.logging.Logger;
-
 public class AccountService implements IAccountService {
 
     private IAccountDAO accountDAO;
@@ -20,15 +15,18 @@ public class AccountService implements IAccountService {
     private IJMSSender jmsSender;
     private ILogger logger;
 
-    public AccountService() {
-        accountDAO = new AccountDAOHibernate();
-        currencyConverter = new CurrencyConverter();
-        jmsSender = new JMSSender();
-        logger = new Logger();
-    }
+
+    public AccountService(IAccountDAO accountDAO, ICurrencyConverter currencyConverter, IJMSSender jmsSender,
+		ILogger logger) {
+	super();
+	this.accountDAO = accountDAO;
+	this.currencyConverter = currencyConverter;
+	this.jmsSender = jmsSender;
+	this.logger = logger;
+}
 
     public Account createAccount(long accountNumber, String customerName) {
-        Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+      //  Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 
         Account account = new Account(accountNumber);
         Customer customer = new Customer(customerName);
@@ -37,12 +35,13 @@ public class AccountService implements IAccountService {
         logger.log("createAccount with parameters accountNumber= "
                 + accountNumber + " , customerName= " + customerName);
 
-        tx.commit();
+   //     tx.commit();
         return account;
     }
 
-    public void deposit(long accountNumber, double amount) {
-        Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+
+	public void deposit(long accountNumber, double amount) {
+    //    Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 
         Account account = accountDAO.loadAccount(accountNumber);
         account.deposit(amount);
@@ -54,39 +53,39 @@ public class AccountService implements IAccountService {
                     + " to account with accountNumber= " + accountNumber);
         }
 
-        tx.commit();
+   //     tx.commit();
     }
 
     public Account getAccount(long accountNumber) {
-        Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+  //      Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 
         Account account = accountDAO.loadAccount(accountNumber);
 
-        tx.commit();
+   //     tx.commit();
         return account;
     }
 
     public Collection<Account> getAllAccounts() {
-        Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+  //      Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
         Collection<Account> accounts = accountDAO.getAccounts();
-        tx.commit();
+  //      tx.commit();
 
         return accounts;
     }
 
     public void withdraw(long accountNumber, double amount) {
-        Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+ //       Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 
         Account account = accountDAO.loadAccount(accountNumber);
         account.withdraw(amount);
         accountDAO.updateAccount(account);
         logger.log("withdraw with parameters accountNumber= " + accountNumber
                 + " , amount= " + amount);
-        tx.commit();
+  //      tx.commit();
     }
 
     public void depositEuros(long accountNumber, double amount) {
-        Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+ //       Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 
         Account account = accountDAO.loadAccount(accountNumber);
         double amountDollars = currencyConverter.euroToDollars(amount);
@@ -98,11 +97,11 @@ public class AccountService implements IAccountService {
             jmsSender.sendJMSMessage("Deposit of $ " + amount
                     + " to account with accountNumber= " + accountNumber);
         }
-        tx.commit();
+  //      tx.commit();
     }
 
     public void withdrawEuros(long accountNumber, double amount) {
-        Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+    //    Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 
         Account account = accountDAO.loadAccount(accountNumber);
         double amountDollars = currencyConverter.euroToDollars(amount);
@@ -111,12 +110,12 @@ public class AccountService implements IAccountService {
         logger.log("withdrawEuros with parameters accountNumber= "
                 + accountNumber + " , amount= " + amount);
 
-        tx.commit();
+  //      tx.commit();
     }
 
     public void transferFunds(long fromAccountNumber, long toAccountNumber,
             double amount, String description) {
-        Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
+    //    Transaction tx = HibernateUtil.getSessionFactory().getCurrentSession().beginTransaction();
 
         Account fromAccount = accountDAO.loadAccount(fromAccountNumber);
         Account toAccount = accountDAO.loadAccount(toAccountNumber);
@@ -131,6 +130,6 @@ public class AccountService implements IAccountService {
                     + " from account with accountNumber= " + fromAccount
                     + " to account with accountNumber= " + toAccount);
         }
-        tx.commit();
+  //      tx.commit();
     }
 }
