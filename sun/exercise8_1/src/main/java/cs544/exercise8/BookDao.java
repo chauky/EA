@@ -5,15 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import cs544.sample.NoSuchResourceException;
 
+@Repository
 public class BookDao implements IBookDao {
 	private static int idCount = 1;
 	private Map<Integer, Book> books = new HashMap<>();
 
 	public BookDao() {
 		add(new Book("EA", "1234","ChauKy", 1234));
-		add(new Book("WAA", "4321","Ky Chau", 3333));
+		add(new Book("Hibernate","1234-3334","Arrocha",15.4));
 	}
 
 	@Override

@@ -10,29 +10,29 @@
 </head>
 <body>
 	<form action="books" method="post">
-	<form:errors path="*" />
-	
-	<table>
-		<tr>
-			<td>Title:</td>
-			<td><input type="text" name="title" /> </td>
-			<form:errors path="title"/>
-		</tr>
-		<tr>
-			<td>ISBN:</td>
-			<td><input type="text" name="ISBN" /> </td>
-		</tr>
-		<tr>
-			<td>Author:</td>
-			<td><input type="text" name="author" /> </td>
-		</tr>
-		<tr>
-			<td>Price:</td>
-			<td><input type="text" name="price" /> </td>
-		</tr>
-	</table>
-	<input type="submit"/>
-	
+		<form:errors path="*" />
+
+		<table>
+			<tr>
+				<td>Title:</td>
+				<td><input type="text" name="title" /></td>
+				<form:errors path="title" />
+			</tr>
+			<tr>
+				<td>ISBN:</td>
+				<td><input type="text" name="ISBN" /></td>
+			</tr>
+			<tr>
+				<td>Author:</td>
+				<td><input type="text" name="author" /></td>
+			</tr>
+			<tr>
+				<td>Price:</td>
+				<td><input type="text" name="price" /></td>
+			</tr>
+		</table>
+		<input type="submit" />
+
 	</form>
 </body>
 </html>

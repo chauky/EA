@@ -2,9 +2,9 @@ package cs544.exercise8;
 
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class BookController {
 
-	@Resource
-	IBookDao bookDao;
+	@Autowired
+	private IBookDao bookDao;
 
 	@RequestMapping("/")
 	public String redirectRoot() {
@@ -34,17 +34,17 @@ public class BookController {
 
 	@RequestMapping(value = "/addBook", method = RequestMethod.POST)
 	public String addBook(@Valid Book book, BindingResult result) {
-		if(!result.hasErrors()) {
+		if (!result.hasErrors()) {
 			return "addBook";
 		}
 		bookDao.add(book);
 		return "redirect:/bookList";
 	}
-	
-//	@RequestMapping(value = "/addBook", method = RequestMethod.GET)
-//    public String addBook(Book book) {
-//        return "addbook";
-//    }
+
+	@RequestMapping(value = "/addBook", method = RequestMethod.GET)
+	public String addBook(Book book) {
+		return "addbook";
+	}
 
 	@RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
 	public String getBook(Model model, @PathVariable int id) {
@@ -58,7 +58,7 @@ public class BookController {
 		return "redirect:/books";
 	}
 
-	@RequestMapping(value="books/delete", method = RequestMethod.POST)
+	@RequestMapping(value = "books/delete", method = RequestMethod.POST)
 	public String delete(int bookId) {
 		bookDao.delete(bookId);
 		return "redirect:/books";

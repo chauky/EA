@@ -1,14 +1,20 @@
 package cs544.exercise8;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.NotBlank;
+
 
 public class Book {
 	private int id;
-	
-	@NotBlank
+	@NotBlank(message= "title must not be null")
 	private String title;
+	@Pattern(regexp= "\\d{3}-\\d{10}", message="wrong expression")
 	private String ISBN;
+	@NotBlank(message= "author must not be null")
 	private String author;
+	@Min(value=0,message = "price must be greater than 0")
 	private double price;
 
 	public Book() {

@@ -17,8 +17,7 @@
 	<mvc:annotation-driven />
 	<context:component-scan base-package="cs544" />
 
-	<bean id="carDao" class="cs544.sample.CarDao" />
-	<bean id="bookDao" class="cs544.exercise8.BookDao" />
+<!-- 	<bean id="carDao" class="cs544.sample.CarDao" /> -->
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
