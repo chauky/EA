@@ -1,11 +1,13 @@
 package cs544.exercise8;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
+
 import org.hibernate.validator.constraints.NotBlank;
 
-
+@Entity
 public class Book {
 	private int id;
 	@NotBlank(message= "title must not be null")

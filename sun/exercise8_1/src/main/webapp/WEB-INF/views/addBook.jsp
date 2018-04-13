@@ -7,16 +7,30 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Add a book</title>
+<style>
+.error {
+	color: #ff0000;
+}
+
+.errorblock {
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	padding: 8px;
+	margin: 16px;
+}
+</style>
 </head>
 <body>
-	<form action="books" method="post">
-		<form:errors path="*" />
+	<form:form modelAttribue="addBook" commandName="addBook" method="post" >
+		<form:errors path="*" cssClass="errorblock" element="div" />
 
 		<table>
 			<tr>
 				<td>Title:</td>
-				<td><input type="text" name="title" /></td>
-				<form:errors path="title" />
+				<td><form:input path="title" /></td>
+				<td><form:errors path="title" cssClass="error" /></td>
+
 			</tr>
 			<tr>
 				<td>ISBN:</td>
@@ -33,6 +47,6 @@
 		</table>
 		<input type="submit" />
 
-	</form>
+	</form:form>
 </body>
 </html>
