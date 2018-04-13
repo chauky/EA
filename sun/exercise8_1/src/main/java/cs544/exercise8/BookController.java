@@ -3,9 +3,11 @@ package cs544.exercise8;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,11 +32,19 @@ public class BookController {
 
 	}
 
-	@RequestMapping(value = "/books", method = RequestMethod.POST)
-	public String addBook(Book book) {
+	@RequestMapping(value = "/addBook", method = RequestMethod.POST)
+	public String addBook(@Valid Book book, BindingResult result) {
+		if(!result.hasErrors()) {
+			return "addBook";
+		}
 		bookDao.add(book);
-		return "redirect:/books";
+		return "redirect:/bookList";
 	}
+	
+//	@RequestMapping(value = "/addBook", method = RequestMethod.GET)
+//    public String addBook(Book book) {
+//        return "addbook";
+//    }
 
 	@RequestMapping(value = "/books/{id}", method = RequestMethod.GET)
 	public String getBook(Model model, @PathVariable int id) {

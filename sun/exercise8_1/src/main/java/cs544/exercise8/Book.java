@@ -1,7 +1,11 @@
 package cs544.exercise8;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Book {
 	private int id;
+	
+	@NotBlank
 	private String title;
 	private String ISBN;
 	private String author;
