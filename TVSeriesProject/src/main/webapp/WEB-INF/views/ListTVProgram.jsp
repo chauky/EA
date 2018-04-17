@@ -1,16 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<script src="<c:url value="/resources/assets/imageAjax.js"/>"></script>
-
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-<script src="<c:url value="/resources/assets/ajax.js"/>"></script>
-
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
 <html>
 <head>
